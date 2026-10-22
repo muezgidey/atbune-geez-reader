@@ -17,7 +17,9 @@ class ReaderSettingsStoreTest {
         val directory = Files.createTempDirectory("atbune-settings-test").toFile()
         val file = directory.resolve("settings.preferences_pb")
         val firstScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-        val firstStore = ReaderSettingsStore(PreferenceDataStoreFactory.create(firstScope) { file })
+        val firstStore = ReaderSettingsStore(
+            PreferenceDataStoreFactory.create(scope = firstScope, produceFile = { file }),
+        )
         firstStore.setDarkTheme(true)
         firstStore.setFont(ReaderFont.SERIF)
         firstStore.setTextSize(29)
@@ -28,7 +30,9 @@ class ReaderSettingsStoreTest {
         firstScope.cancel()
 
         val secondScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-        val reopened = ReaderSettingsStore(PreferenceDataStoreFactory.create(secondScope) { file })
+        val reopened = ReaderSettingsStore(
+            PreferenceDataStoreFactory.create(scope = secondScope, produceFile = { file }),
+        )
         val persisted = reopened.settings.first()
         assertTrue(persisted.darkTheme)
         assertEquals(ReaderFont.SERIF, persisted.font)
