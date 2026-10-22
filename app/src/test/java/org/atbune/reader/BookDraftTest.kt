@@ -29,7 +29,7 @@ class BookDraftTest {
 
     @Test fun searchMatchesGeEzUnicodeWithoutChangingStoredText() {
         val original = book.pages.first().text
-        assertEquals(listOf(0), findMatchingPages(book.pages, "ኣቡነ").map { it.page })
+        assertEquals(listOf(0, 7), findMatchingPages(book.pages, "ኣቡነ").map { it.page })
         assertEquals(original, book.pages.first().text)
     }
 }
