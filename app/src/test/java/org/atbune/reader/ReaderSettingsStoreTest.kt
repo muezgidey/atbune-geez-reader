@@ -13,7 +13,7 @@ import org.junit.Test
 import java.nio.file.Files
 
 class ReaderSettingsStoreTest {
-    @Test fun settingsAndBookmarksPersistAcrossStoreRecreation() = runBlocking {
+    @Test fun settingsAndBookmarksPersistAcrossStoreRecreation(): Unit = runBlocking {
         val directory = Files.createTempDirectory("atbune-settings-test").toFile()
         val file = directory.resolve("settings.preferences_pb")
         val firstScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -43,5 +43,6 @@ class ReaderSettingsStoreTest {
         assertEquals(setOf(12), persisted.bookmarks)
         secondScope.cancel()
         directory.deleteRecursively()
+        Unit
     }
 }
