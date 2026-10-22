@@ -1,7 +1,7 @@
 package org.atbune.reader
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.SelectionContainer
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
